@@ -47,8 +47,5 @@ module.exports = function(source) {
       template = ast.print_to_string({beautify: true});
     }
   }
-  if (opts.disableModuleExports) {
-    return template;
-  }
   return 'module.exports = ' + template;
 };
