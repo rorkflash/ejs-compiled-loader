@@ -33,6 +33,10 @@ module.exports = function(source) {
   var template = ejs.compile(source, opts);
   template.dependencies.forEach(this.dependency.bind(this));
 
+  if (opts.rawTemplate) {
+    return template((opts['data'] || {}));
+  }
+
   // Beautify javascript code
   if (this.loaders.length > 1) {
     template = JSON.stringify(template((opts['data'] || {})));

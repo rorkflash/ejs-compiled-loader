@@ -147,6 +147,8 @@ Following options can be specified in query:
 
 `htmlmin` — see [htmlminify section](#htmlminify)
 
+`rawTemplate` - see [rawTemplate section](#rawTemplate)
+
 ## htmlminify
 
 ```javascript
@@ -168,6 +170,57 @@ module: {
 ```
 
 See [all options reference](https://github.com/kangax/html-minifier#options-quick-reference)
+
+## rawTemplate
+
+Simpliest use for this loader is :
+
+```javascript
+module: {
+    rules: [
+        {
+            test: /\.ejs$/,
+            use: [
+                {
+                  loader: "ejs-webpack-loader"
+                }
+            ]
+        }
+    ]
+}
+```
+
+Still, in some case, you want to be able to modify the output HTML stream.
+To do so, you'll need the raw HTML stream, not an escaped string stored as a "module.exports".
+
+Here is an example that process the EJS output through prettier formatter :
+
+```javascript
+module: {
+    rules: [
+        {
+            test: /\.ejs$/,
+            use: [
+                {
+                  loader: "html-loader"
+                },
+                {
+                  loader: "prettier-loader",
+                  options: {
+                    filepath: "foobar.html"
+                  }
+                },
+                {
+                  loader: "ejs-webpack-loader",
+                  options: {
+                    rawTemplate: true // default value is false
+                  }
+                }
+            ]
+        }
+    ]
+}
+```
 
 ## License
 
